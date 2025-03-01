@@ -81,12 +81,7 @@ impl Conversation {
                 content: GREETING.to_string(),
             },
         ];
-        conv.insert(
-            thread.id.to_string().clone(),
-            Conversation {
-                history,
-            },
-        );
+        conv.insert(thread.id.to_string().clone(), Conversation { history });
     }
     async fn revive(ctx: Context, channel: Channel) -> Conversation {
         println!("reviving");
@@ -108,16 +103,11 @@ impl Conversation {
                     },
                 );
             } else {
-                history.insert(
-                    0,
-                    History::from_message(m.clone())
-                );
+                history.insert(0, History::from_message(m.clone()));
             }
         }
 
-        Conversation {
-            history,
-        }
+        Conversation { history }
     }
     pub async fn get(ctx: Context, channel: Channel) -> Conversation {
         let map = CONVERSATIONS.lock().await;
@@ -154,12 +144,9 @@ impl History {
         content = format!("{}: {}", msg.author.display_name(), content);
         let role = if msg.author.bot {
             Role::Assistant
-        }else {
+        } else {
             Role::User
         };
-        History {
-            role,
-            content,
-        }
+        History { role, content }
     }
 }

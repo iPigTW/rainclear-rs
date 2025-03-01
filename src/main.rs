@@ -28,12 +28,7 @@ impl EventHandler for Handler {
             chat::Conversation::create(channel, msg, ctx.clone()).await;
         }
     }
-    async fn thread_delete(
-        &self,
-        _: Context,
-        guild: PartialGuildChannel,
-        _: Option<GuildChannel>,
-    ) {
+    async fn thread_delete(&self, _: Context, guild: PartialGuildChannel, _: Option<GuildChannel>) {
         chat::Conversation::delete(guild.id).await;
     }
 }
